@@ -12,7 +12,7 @@ const ProductSchema = mongoose.Schema({
   },
   name: String,
   imageUrl: String,
-  price: decimal,
+  price: mongoose.Schema.Types.Decimal128,
   createAt: {
     type: Date,
     default: Date.now

@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 const OrderSchema = mongoose.Schema({
   orderId: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
+    default: new ObjectId()
   },
   userId: {
     type: mongoose.ObjectId,
@@ -10,7 +12,8 @@ const OrderSchema = mongoose.Schema({
   restaurantId: {
     type: mongoose.ObjectId,
   },
-  orderTotal: decimal,
+  orderTotal: mongoose.Schema.Types.Decimal128,
+  // orderTotal: String,
   deliveryStatus: String,
   createAt: {
     type: Date,
@@ -23,6 +26,6 @@ const OrderSchema = mongoose.Schema({
 })
 
 
-const order = mongoose.model("user", OrderSchema);
+const order = mongoose.model("order", OrderSchema);
 
 export default order;

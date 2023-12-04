@@ -6,16 +6,24 @@ const RestaurantSchema = mongoose.Schema({
     type: ObjectId,
     default: new ObjectId(),
   },
-  name: String,
+  name: {
+    type:String,
+    required:[true,"Name is required field"],
+  },
   email: {
     type: String,
+    required:[true,"Email is required field"],
     unique: true
   },
   mobileNumber: {
     type: String,
+    required:[true,"Number is required field"],
     unique: true
   },
-  address: String,
+  address: {
+    type:String,
+    required:[true,"Address is required field"],
+  },
   createAt: {
     type: Date,
     default: Date.now

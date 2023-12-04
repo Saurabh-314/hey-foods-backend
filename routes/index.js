@@ -9,9 +9,6 @@ import RatingApi from "./RatingApi.js";
 
 const router = Router();
 
-router.get("/check", (req, res) => {
-  res.status(200).json({ msg: "working fine" });
-})
 router.use("/auth", AuthApi);
 router.use("/address", AddressApi);
 router.use("/restaurant", RestaurantApi);

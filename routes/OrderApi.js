@@ -2,6 +2,6 @@ import { Router } from "express";
 import { register } from "../controller/OrderController.js"
 const router = Router();
 
-router.use("/register", register);
+router.post("/register", register);
 
 export default router;

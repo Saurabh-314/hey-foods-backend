@@ -5,14 +5,25 @@ const UserSchema = mongoose.Schema({
     // type: mongoose.types.ObjectId,
     type: mongoose.ObjectId,
   },
-  firstName: String,
-  lastName: String,
+  firstName: {
+    type: String,
+    required:[true,"First name is required field"],
+    trim: true
+  },
+  lastName: {
+    type: String,
+    trim: true
+  },
   email: {
     type: String,
-    unique: true
+    required:[true,"Email is required field"],
+    unique: true,
+    trim: true
   },
   password: {
     type: String,
+    required:[true,"password is required field"],
+    select: false
   },
   dob: {
     type: Date,
@@ -20,6 +31,7 @@ const UserSchema = mongoose.Schema({
   gender: String,
   mobileNumber: {
     type: String,
+    required:[true,"Number is required field"],
     unique: true
   },
   deviceToken: String,

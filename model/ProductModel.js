@@ -10,7 +10,10 @@ const ProductSchema = mongoose.Schema({
   restaurantId: {
     type: mongoose.ObjectId,
   },
-  name: String,
+  name: {
+    type:String,
+    required:[true,"Name is required field"],
+  },
   imageUrl: String,
   price: mongoose.Schema.Types.Decimal128,
   createAt: {

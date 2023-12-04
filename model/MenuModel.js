@@ -8,7 +8,10 @@ const MenuSchema = mongoose.Schema({
   restaurantId: {
     type: mongoose.ObjectId
   },
-  name: String,
+  name: {
+    type:String,
+    required:[true,"Name is required field"],
+  },
   iconUrl: String,
   createAt: {
     type: Date,

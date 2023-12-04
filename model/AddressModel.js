@@ -13,10 +13,22 @@ const AddressSchema = mongoose.Schema({
     type: String,
     default: "India"
   },
-  state: String,
-  city: String,
-  street: String,
-  pincode: String,
+  state: {
+    type: String,
+    required: [true, "State is required field"],
+  },
+  city: {
+    type: String,
+    required: [true, "City is required field"],
+  },
+  street: {
+    type: String,
+    required: [true, "Street is required field"],
+  },
+  pincode: {
+    type: String,
+    required: [true, "Pincode is required field"],
+  },
   createAt: {
     type: Date,
     default: Date.now

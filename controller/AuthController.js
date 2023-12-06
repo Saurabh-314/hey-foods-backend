@@ -42,7 +42,7 @@ export const login = async (req, res) => {
   }
 
   // create jwt token
-  const token = jwt.sign(payload, "somesecretekey");
+  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
 
   res.status(200).json({
     status: "success",

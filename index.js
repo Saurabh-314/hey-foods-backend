@@ -8,7 +8,7 @@ import routes from "./routes/index.js";
 dotenv.config();
 mongoose.set('strictQuery', true);
 
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 const app = express();
 app.use(cors());
 app.use(express.json())

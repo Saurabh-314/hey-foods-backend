@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 const ProductSchema = mongoose.Schema({
   productId: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
+    default: new ObjectId()
   },
   menuId: {
     type: mongoose.ObjectId,

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-let ObjectId = mongoose.Types.ObjectId;
+const ObjectId = mongoose.Types.ObjectId;
 
 const AddressSchema = mongoose.Schema({
   addressId: {

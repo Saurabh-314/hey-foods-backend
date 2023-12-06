@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 const ObjectId = mongoose.Types.ObjectId;
+
 const MenuSchema = mongoose.Schema({
   menuId: {
     type: ObjectId,

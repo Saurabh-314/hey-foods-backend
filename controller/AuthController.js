@@ -20,13 +20,13 @@ export const register = async (req, res) => {
     userId, firstName, lastName, email, password: hashedPassword, dob, gender, mobileNumber, deviceToken
   });
   await user.save();
-  res.status(201).json({ message: "user is created" })
+  res.status(201).json({ status: "success" })
 }
 
 export const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).select("password");
-  console.log("login user",user)
+  // console.log("login user", user)
   if (!user) {
     return res.status(406).json({ message: "User not found" });
   }
@@ -35,16 +35,17 @@ export const login = async (req, res) => {
     return res.status(406).json({ message: "User Name or Password is incorrect" });
   }
 
-  // create jwt token
+  // create payload
   const payload = {
     email,
     _id: user._id,
   }
 
+  // create jwt token
   const token = jwt.sign(payload, "somesecretekey");
 
   res.status(200).json({
-    message: "successfully logged in.",
+    status: "success",
     data: {
       token
     }

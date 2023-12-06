@@ -1,13 +1,14 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 const UserSchema = mongoose.Schema({
   userId: {
-    // type: mongoose.types.ObjectId,
-    type: mongoose.ObjectId,
+    type: ObjectId,
+    default: new ObjectId()
   },
   firstName: {
     type: String,
-    required:[true,"First name is required field"],
+    required: [true, "First name is required field"],
     trim: true
   },
   lastName: {
@@ -16,13 +17,13 @@ const UserSchema = mongoose.Schema({
   },
   email: {
     type: String,
-    required:[true,"Email is required field"],
+    required: [true, "Email is required field"],
     unique: true,
     trim: true
   },
   password: {
     type: String,
-    required:[true,"password is required field"],
+    required: [true, "password is required field"],
     select: false
   },
   dob: {
@@ -31,10 +32,15 @@ const UserSchema = mongoose.Schema({
   gender: String,
   mobileNumber: {
     type: String,
-    required:[true,"Number is required field"],
+    required: [true, "Number is required field"],
     unique: true
   },
   deviceToken: String,
+  role: {
+    type: String,
+    anum: ["user", "admin"],
+    default: "user"
+  },
   createAt: {
     type: Date,
     default: Date.now

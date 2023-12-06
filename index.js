@@ -4,6 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connect from "./database/mongodb.js";
 import routes from "./routes/index.js";
+import CustomError from "./utils/CustomError.js";
+import { globalErrorHandler } from "./controller/ErrorController.js";
 
 dotenv.config();
 mongoose.set('strictQuery', true);
@@ -14,6 +16,15 @@ app.use(cors());
 app.use(express.json())
 
 app.use('/api/v1', routes);
+
+app.all("*", (req, res, next) => {
+  const err = new CustomError(`Can't find url ${req.originalUrl} on the server!`, 404);
+  next(err);
+})
+
+app.use(globalErrorHandler)
+
+
 
 await connect();
 

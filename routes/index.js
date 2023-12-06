@@ -1,5 +1,5 @@
 import { Router } from "express";
-import AuthApi from "./AuthApi.js";
+import UserApi from "./UserApi.js";
 import AddressApi from "./AddressApi.js";
 import RestaurantApi from "./RestaurantApi.js";
 import MenuApi from "./MenuApi.js";
@@ -9,7 +9,7 @@ import RatingApi from "./RatingApi.js";
 
 const router = Router();
 
-router.use("/auth", AuthApi);
+router.use("/user", UserApi);
 router.use("/address", AddressApi);
 router.use("/restaurant", RestaurantApi);
 router.use("/menu", MenuApi);

@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+const ObjectId = mongoose.Types.ObjectId;
 
 const RatingSchema = mongoose.Schema({
   ratingId: {
-    type: mongoose.ObjectId,
+    type: ObjectId,
+    default: new ObjectId()
   },
   userId: {
     type: mongoose.ObjectId,

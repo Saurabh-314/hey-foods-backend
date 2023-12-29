@@ -7,11 +7,12 @@ const MenuSchema = mongoose.Schema({
     default: new ObjectId()
   },
   restaurantId: {
-    type: mongoose.ObjectId
+    type: mongoose.ObjectId,
+    required: [true, "Restaurant ID is required field"],
   },
   name: {
-    type:String,
-    required:[true,"Name is required field"],
+    type: String,
+    required: [true, "Name is required field"],
   },
   iconUrl: String,
   createAt: {

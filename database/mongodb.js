@@ -7,8 +7,8 @@ const password = process.env.MONGO_DB_PASSWORD;
 const url = process.env.MONGO_DB_URL;
 const databaseName = process.env.MONGO_DB_NAME;
 
-const MONGO_URL = `mongodb+srv://${username}:${password}@${url}/${databaseName}?retryWrites=true&w=majority`;
-// const MONGO_URL = `mongodb://127.0.0.1:27017/hey-foods`;
+// const MONGO_URL = `mongodb+srv://${username}:${password}@${url}/${databaseName}?retryWrites=true&w=majority`;
+const MONGO_URL = `mongodb://127.0.0.1:27017/hey-foods`;
 
 async function connect() {
   try {

@@ -5,9 +5,11 @@ const AddressSchema = mongoose.Schema({
   addressId: {
     type: ObjectId,
     default: new ObjectId(),
+    ref: "user"
   },
   userId: {
     type: mongoose.ObjectId,
+    ref: "user"
   },
   country: {
     type: String,

@@ -12,9 +12,16 @@ const OrderSchema = mongoose.Schema({
   restaurantId: {
     type: mongoose.ObjectId,
   },
+  itemId: {
+    type: mongoose.ObjectId
+  },
   orderTotal: mongoose.Schema.Types.Decimal128,
   // orderTotal: String,
-  deliveryStatus: String,
+  deliveryStatus: {
+    type: String,
+    anum: ["panding", "reject", "done"],
+    default: "pending"
+  },
   createAt: {
     type: Date,
     default: Date.now

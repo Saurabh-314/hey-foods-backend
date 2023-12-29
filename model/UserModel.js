@@ -4,7 +4,8 @@ const ObjectId = mongoose.Types.ObjectId;
 const UserSchema = mongoose.Schema({
   userId: {
     type: ObjectId,
-    default: new ObjectId()
+    default: new ObjectId(),
+    ref:"address"
   },
   firstName: {
     type: String,

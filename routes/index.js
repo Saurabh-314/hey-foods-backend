@@ -4,7 +4,7 @@ import AddressApi from "./AddressApi.js";
 import RestaurantApi from "./RestaurantApi.js";
 import MenuApi from "./MenuApi.js";
 import OrderApi from "./OrderApi.js";
-import ProductApi from "./ProductApi.js";
+import ItemApi from "./ItemApi.js";
 import RatingApi from "./RatingApi.js";
 
 const router = Router();
@@ -14,7 +14,7 @@ router.use("/address", AddressApi);
 router.use("/restaurant", RestaurantApi);
 router.use("/menu", MenuApi);
 router.use("/order", OrderApi);
-router.use("/product", ProductApi);
+router.use("/item", ItemApi);
 router.use("/rating", RatingApi);
 
 export default router;

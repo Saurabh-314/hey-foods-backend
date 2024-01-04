@@ -1,26 +1,34 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
+import mongoose, { Schema } from "mongoose";
 
-const OrderSchema = mongoose.Schema({
-  orderId: {
-    type: ObjectId,
-    default: new ObjectId()
-  },
+const OrderSchema = Schema({
   userId: {
-    type: mongoose.ObjectId,
+    type: Schema.Types.ObjectId,
+    required: true
   },
   restaurantId: {
-    type: mongoose.ObjectId,
+    type: Schema.Types.ObjectId,
+    required: true
   },
   itemId: {
-    type: mongoose.ObjectId
+    type: Schema.Types.ObjectId,
+    required: true
   },
-  orderTotal: mongoose.Schema.Types.Decimal128,
-  // orderTotal: String,
+  orderTotal: {
+    type: Schema.Types.Decimal128,
+    required: true
+  },
   deliveryStatus: {
     type: String,
-    anum: ["panding", "reject", "done"],
+    enum: ["pending", "reject", "done"],
     default: "pending"
+  },
+  deliveryAddress: {
+    country: String,
+    state: String,
+    city: String,
+    street: String,
+    landmark: String,
+    pincode: String,
   },
   createAt: {
     type: Date,

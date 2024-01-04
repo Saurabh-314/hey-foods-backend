@@ -1,13 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const ObjectId = mongoose.Types.ObjectId;
-
 const RestaurantSchema = mongoose.Schema({
-  restaurantId: {
-    type: ObjectId,
-    default: new ObjectId(),
-  },
   name: {
     type: String,
     required: [true, "Name is required field"],
@@ -31,6 +25,16 @@ const RestaurantSchema = mongoose.Schema({
     type: String,
     required: [true, "Address is required field"],
   },
+  category: {
+    type: String,
+    enum: ["veg", "non-veg", "both"],
+    required: [true, "Category is required field"],
+  },
+  approval: {
+    type: String,
+    enum: ["pending", "accept", "reject"],
+    default: "pending"
+  },
   createAt: {
     type: Date,
     default: Date.now
@@ -42,7 +46,6 @@ const RestaurantSchema = mongoose.Schema({
 })
 
 RestaurantSchema.pre("save", async function (next) {
-  // console.log("RestaurantSchema pre", this.password);
   this.password = await bcrypt.hash(this.password, 10);
   next();
 })

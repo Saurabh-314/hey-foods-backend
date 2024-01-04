@@ -1,17 +1,14 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
+import mongoose, { Schema } from "mongoose";
 
-const MenuSchema = mongoose.Schema({
-  menuId: {
-    type: ObjectId,
-    default: new ObjectId()
-  },
+
+const MenuSchema = Schema({
   restaurantId: {
-    type: mongoose.ObjectId,
+    type: Schema.Types.ObjectId,
     required: [true, "Restaurant ID is required field"],
   },
   name: {
     type: String,
+    enum: ["veg", "non-veg", "both"],
     required: [true, "Name is required field"],
   },
   iconUrl: String,

@@ -1,12 +1,6 @@
 import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
 
 const UserSchema = mongoose.Schema({
-  userId: {
-    type: ObjectId,
-    default: new ObjectId(),
-    ref:"address"
-  },
   firstName: {
     type: String,
     required: [true, "First name is required field"],
@@ -39,7 +33,7 @@ const UserSchema = mongoose.Schema({
   deviceToken: String,
   role: {
     type: String,
-    anum: ["user", "admin"],
+    enum: ["user", "admin"],
     default: "user"
   },
   createAt: {
@@ -50,6 +44,11 @@ const UserSchema = mongoose.Schema({
     type: Date,
     default: Date.now
   }
+})
+
+UserSchema.pre("save", async function (next) {
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
 })
 
 const user = mongoose.model("user", UserSchema);

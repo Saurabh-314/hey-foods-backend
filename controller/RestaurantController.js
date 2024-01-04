@@ -7,27 +7,23 @@ import menuModel from "../model/MenuModel.js";
 import itemModel from "../model/ItemModel.js";
 import orderModel from "../model/OrderModel.js";
 
-export const shopRegister = async (req, res, next) => {
-  try {
-    const data = await restaurantModel.create(req.body);
-    res.status(201).json({
-      message: "success",
-      data: {
-        data
-      }
-    })
-  } catch (error) {
-    res.status(400).json({
-      status: "fail",
-      message: error.message
-    })
-  }
-}
+export const shopRegister = asyncErrorHandler(async (req, res, next) => {
 
-export const shopLogin = async (req, res, next) => {
+  const data = await restaurantModel.create(req.body);
+
+  res.status(201).json({
+    message: "success",
+    data: {
+      data
+    }
+  })
+})
+
+export const shopLogin = asyncErrorHandler(async (req, res, next) => {
   const { email, password } = req.body;
+  // console.log(req.body)
   const restaurant = await restaurantModel.findOne({ email }).select("+password"); // it will fetch all document with password
-  console.log("restaurant", restaurant);
+  // console.log("restaurant", restaurant);
   if (!restaurant) {
     const error = new CustomeError('Username or Password is incorrect', 404);
     return next(error);
@@ -42,9 +38,9 @@ export const shopLogin = async (req, res, next) => {
   // create payload
   const payload = {
     email,
-    restaurantId: restaurant.restaurantId,
+    _id: restaurant._id,
   }
-  console.log(payload)
+  console.log("payload", payload)
 
   // create jwt token
   const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
@@ -56,10 +52,10 @@ export const shopLogin = async (req, res, next) => {
     }
   });
 
-}
+})
 
 export const shopInfo = asyncErrorHandler(async (req, res, next) => {
-  const restaurant = await restaurantModel.findOne({ restaurantId: req.restaurantId });
+  const restaurant = await restaurantModel.findById(req.auth._id);
   res.status(200).json({
     status: "success",
     data: {
@@ -69,7 +65,7 @@ export const shopInfo = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const shopUpdate = asyncErrorHandler(async (req, res, next) => {
-  const restaurant = await restaurantModel.findByIdAndUpdate(req._id, req.body, { new: true });
+  const restaurant = await restaurantModel.findByIdAndUpdate(req.auth._id, req.body, { new: true });
   res.status(200).json({
     status: "success",
     data: {
@@ -80,7 +76,7 @@ export const shopUpdate = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const shopDelete = asyncErrorHandler(async (req, res, next) => {
-  const deletedShop = await restaurantModel.deleteOne({ restaurantId: req.restaurantId });
+  const deletedShop = await restaurantModel.deleteOne({ _id: req.auth._id });
   res.status(200).json({
     status: "success",
     data: {
@@ -90,31 +86,43 @@ export const shopDelete = asyncErrorHandler(async (req, res, next) => {
 
 })
 
-export const shopCategory = asyncErrorHandler(async (req, res, next) => { })
-
-export const shopMenuList = asyncErrorHandler(async (req, res, next) => {
-  const menuList = menuModel.find({ restaurantId: req.restaurantId });
-
+export const shopCategory = asyncErrorHandler(async (req, res, next) => {
+  const shopCategory = await restaurantModel.findOne({ _id: req.auth._id }).select("category");
   res.status(200).json({
     status: "success",
     data: {
-      data: menuList
+      data: shopCategory
     }
   });
+
+})
+
+export const shopMenuList = asyncErrorHandler(async (req, res, next) => {
+  const menuList = await menuModel.find({ restaurantId: req.auth._id })
+
+  res.status(201).json({
+    message: "success",
+    length: menuList.length,
+    data: {
+      data: menuList
+    }
+  })
 })
 
 export const shopItemList = asyncErrorHandler(async (req, res, next) => {
-  const menuList = itemModel.find({ restaurantId: req.restaurantId });
+  const menuList = await itemModel.find({ restaurantId: req.auth._id });
 
   res.status(200).json({
     status: "success",
+    length: menuList.length,
     data: {
       data: menuList
     }
   });
 })
+
 export const newOrder = asyncErrorHandler(async (req, res, next) => {
-  const order = orderModel.find({ restaurantId: req.restaurantId })
+  const order = await orderModel.find({ restaurantId: req.auth._id })
 
   res.status(200).json({
     status: "success",

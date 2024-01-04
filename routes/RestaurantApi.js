@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { shopRegister, shopLogin, shopInfo, shopUpdate, shopDelete, allCompleteOrders, orderDetails, newOrder, settlePayments, pendingPayment, shopLogout, changePassword, forgetPassword } from "../controller/RestaurantController.js";
+import { shopRegister, shopLogin, shopInfo, shopUpdate, shopDelete, allCompleteOrders, orderDetails, newOrder, settlePayments, pendingPayment, shopLogout, changePassword, forgetPassword, shopMenuList, shopCategory } from "../controller/RestaurantController.js";
 import { auth } from "../middleware/authMiddleware.js";
 const router = Router();
 
@@ -11,6 +11,8 @@ router.route("/info")
   .patch(auth, shopUpdate)
   .delete(auth, shopDelete)
 
+router.route("/category").get(auth, shopCategory);
+router.route("/shopmenu").get(auth, shopMenuList);
 router.route("/neworders").get(auth, newOrder);
 router.route("/orderdetails").get(auth, orderDetails);
 router.route("/allcompleteorder").get(auth, allCompleteOrders);

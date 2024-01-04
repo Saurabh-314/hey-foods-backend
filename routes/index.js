@@ -10,11 +10,11 @@ import RatingApi from "./RatingApi.js";
 const router = Router();
 
 router.use("/user", UserApi);
-router.use("/address", AddressApi);
 router.use("/restaurant", RestaurantApi);
 router.use("/menu", MenuApi);
-router.use("/order", OrderApi);
 router.use("/item", ItemApi);
+router.use("/address", AddressApi);
+router.use("/order", OrderApi);
 router.use("/rating", RatingApi);
 
 export default router;

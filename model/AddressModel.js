@@ -1,15 +1,8 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
+import mongoose, { Schema } from "mongoose";
 
-const AddressSchema = mongoose.Schema({
-  addressId: {
-    type: ObjectId,
-    default: new ObjectId(),
-    ref: "user"
-  },
+const AddressSchema = Schema({
   userId: {
-    type: mongoose.ObjectId,
-    ref: "user"
+    type: Schema.Types.ObjectId
   },
   country: {
     type: String,
@@ -26,6 +19,9 @@ const AddressSchema = mongoose.Schema({
   street: {
     type: String,
     required: [true, "Street is required field"],
+  },
+  landmark: {
+    type: String
   },
   pincode: {
     type: String,

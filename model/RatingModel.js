@@ -1,13 +1,8 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
+import mongoose, { Schema } from "mongoose";
 
-const RatingSchema = mongoose.Schema({
-  ratingId: {
-    type: ObjectId,
-    default: new ObjectId()
-  },
+const RatingSchema = Schema({
   userId: {
-    type: mongoose.ObjectId,
+    type: Schema.Types.ObjectId,
   },
   restaurantId: {
     type: mongoose.ObjectId,

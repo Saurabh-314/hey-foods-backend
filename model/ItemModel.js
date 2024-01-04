@@ -1,23 +1,19 @@
-import mongoose from "mongoose";
-const ObjectId = mongoose.Types.ObjectId;
+import mongoose, { Schema } from "mongoose";
 
-const ItemSchema = mongoose.Schema({
-  itemId: {
-    type: ObjectId,
-    default: new ObjectId()
-  },
+const ItemSchema = Schema({
   menuId: {
-    type: mongoose.ObjectId,
+    type: Schema.Types.ObjectId,
+    ref: "menu"
   },
   restaurantId: {
     type: mongoose.ObjectId,
   },
   name: {
-    type:String,
-    required:[true,"Name is required field"],
+    type: String,
+    required: [true, "Name is required field"],
   },
   imageUrl: String,
-  price: mongoose.Schema.Types.Decimal128,
+  price: Schema.Types.Decimal128,
   createAt: {
     type: Date,
     default: Date.now

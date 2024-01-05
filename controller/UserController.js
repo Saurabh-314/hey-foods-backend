@@ -1,6 +1,5 @@
 import userModel from "../model/UserModel.js";
-import MenuModel from "../model/MenuModel.js";
-import AddressModel from "../model/AddressModel.js";
+import orderModel from "../model/OrderModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import asyncErrorHandler from "../utils/AsyncErrorHandler.js";
@@ -27,7 +26,7 @@ export const login = asyncErrorHandler(async (req, res, next) => {
   const { email, password } = req.body;
   // const user = await User.findOne({ email }).select("password"); // it will fetch only password
   const user = await userModel.findOne({ email }).select("+password"); // it will fetch all document with password
-  console.log("user login ", user)
+  // console.log("user login ", user)
   if (!user) {
     const error = new CustomeError('Username or Password is incorrect', 404);
     return next(error);
@@ -89,11 +88,12 @@ export const profileUpdate = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const orderList = asyncErrorHandler(async (req, res, next) => {
-  const order = await orderModel.find({ _id: req.auth._id }, { deliveryStatus: { $in: ["pending", "reject", "done"] } })
+  const data = await orderModel.find({ userId: req.auth._id, deliveryStatus: { $in: ["pending", "complete", "reject"] } })
   res.status(200).json({
     status: 'success',
+    length: data.length,
     data: {
-      data: order
+      data
     }
   })
 })

@@ -19,8 +19,18 @@ const OrderSchema = Schema({
   },
   deliveryStatus: {
     type: String,
-    enum: ["pending", "reject", "done"],
+    enum: ["pending", "reject", "complete"],
     default: "pending"
+  },
+  paymentType: {
+    type: String,
+    enum: ["COD", "online"],
+    required: true
+  },
+  paymentStatus: {
+    type: String,
+    enum: ["incomplete", "complete"],
+    default: "incomplete"
   },
   deliveryAddress: {
     country: String,

@@ -21,26 +21,13 @@ export const auth = asyncErrorHandler(async (req, res, next) => {
   next();
 })
 
-export const adminOnly = asyncErrorHandler(async (req, res, next) => {
-  console.log("admin only route")
-  const testToken = req.headers.authorization;
-  let token
-  if (testToken && testToken.startsWith('bearer')) {
-    token = testToken.split(" ")[1];
+// for admin only
+export const restrict = (role) => {
+  return (req, res, next) => {
+    if (req.auth.role !== role) {
+      const error = new CustomeError('You do nat have permission to perform this action', 403);
+      next(error);
+    }
+    next();
   }
-
-  if (!token) {
-    next(new CustomeError('You are not logged In!', 401))
-  }
-  const decodedToken = await util.promisify(jwt.verify)(token, process.env.JWT_SECRET_KEY);
-  console.log("decoded", decodedToken);
-  // console.log("admin only token", token)
-
-  if (decodedToken.role != 'admin') {
-    next(new CustomeError('You are not Authorized', 401))
-  }
-  req._id = decodedToken._id;
-  // console.log(token)
-
-  next();
-})
+}

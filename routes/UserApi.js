@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { register, login, profile, profileUpdate, orderList } from "../controller/UserController.js";
-import { auth, adminOnly } from "../middleware/authMiddleware.js";
+import { auth } from "../middleware/authMiddleware.js";
 const router = Router();
 
 router.post("/register", register);
@@ -10,7 +10,7 @@ router.route("/profile")
   .get(auth, profile)
   .patch(auth, profileUpdate)
 
-router.route("/order", (auth, orderList));
+router.route("/order").get(auth, orderList);
 
 
 export default router;

@@ -122,7 +122,7 @@ export const shopItemList = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const newOrder = asyncErrorHandler(async (req, res, next) => {
-  const order = await orderModel.find({ restaurantId: req.auth._id })
+  const order = await orderModel.find({ restaurantId: req.auth._id, deliveryStatus: { $in: "pending" } },)
 
   res.status(200).json({
     status: "success",
@@ -131,10 +131,38 @@ export const newOrder = asyncErrorHandler(async (req, res, next) => {
     }
   });
 })
-export const orderDetails = asyncErrorHandler(async (req, res, next) => { })
-export const allCompleteOrders = asyncErrorHandler(async (req, res, next) => { })
+export const orderDetails = asyncErrorHandler(async (req, res, next) => {
+  const data = await orderModel.findById(req.params.id);
+  res.status(200).json({
+    status: "success",
+    data: {
+      data
+    }
+  });
+})
+export const allCompleteOrders = asyncErrorHandler(async (req, res, next) => {
+  const data = await orderModel.find({ restaurantId: req.auth._id, deliveryStatus: { $in: "complete" } },)
+
+  res.status(200).json({
+    status: "success",
+    length: data.length,
+    data: {
+      data
+    }
+  });
+})
 export const settlePayments = asyncErrorHandler(async (req, res, next) => { })
-export const pendingPayment = asyncErrorHandler(async (req, res, next) => { })
+export const pendingPayment = asyncErrorHandler(async (req, res, next) => {
+  const data = await orderModel.find({ restaurantId: req.auth._id, paymentStatus: { $in: "incomplete" } },)
+
+  res.status(200).json({
+    status: "success",
+    length: data.length,
+    data: {
+      data
+    }
+  });
+})
 export const changePassword = asyncErrorHandler(async (req, res, next) => { })
 export const forgetPassword = asyncErrorHandler(async (req, res, next) => { })
 export const shopLogout = asyncErrorHandler(async (req, res, next) => { })

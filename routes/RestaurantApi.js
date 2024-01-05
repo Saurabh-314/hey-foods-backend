@@ -13,8 +13,8 @@ router.route("/info")
 
 router.route("/category").get(auth, shopCategory);
 router.route("/shopmenu").get(auth, shopMenuList);
-router.route("/neworders").get(auth, newOrder);
-router.route("/orderdetails").get(auth, orderDetails);
+router.route("/neworder").get(auth, newOrder);
+router.route("/orderdetails/:id").get(auth, orderDetails);
 router.route("/allcompleteorder").get(auth, allCompleteOrders);
 router.route("/settlepayments").get(auth, settlePayments);
 router.route("/pendingpayments").get(auth, pendingPayment);

@@ -29,14 +29,12 @@ const castErrorHandler = (err) => {
 }
 
 const duplicateKeyError = (err) => {
-  // const email = err.KeyValue.email;
-  // console.log(email);
-  const msg = `There Email is already exist.  Please use another Email`;
+  const msg = `There ${Object.keys(err.keyValue)[0]} is already exist.  Please use another ${Object.keys(err.keyValue)[0]}`;
   return new CustomError(msg, 400);
 }
 
 const ValidationErrorHandler = (err) => {
-  const errors = Object.values(err.error).map(val => val.message);
+  const errors = Object.values(err.errors).map(val => val.message);
   const errorMessages = errors.join('. ');
   const msg = `Invalid input data ${errorMessages}`;
 
@@ -48,7 +46,7 @@ const handleExpiredJWT = (err) => {
 }
 
 const handleJWTError = (err) => {
-new CustomError('InValid token. Please loging again!',401)
+  new CustomError('InValid token. Please loging again!', 401)
 }
 
 export const globalErrorHandler = (error, req, res, next) => {

@@ -9,6 +9,10 @@ const OrderSchema = Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
+  menuId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  },
   itemId: {
     type: Schema.Types.ObjectId,
     required: true

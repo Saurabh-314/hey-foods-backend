@@ -56,6 +56,7 @@ export const shopLogin = asyncErrorHandler(async (req, res, next) => {
 
 export const shopInfo = asyncErrorHandler(async (req, res, next) => {
   const restaurant = await restaurantModel.findById(req.auth._id);
+
   res.status(200).json({
     status: "success",
     data: {
@@ -100,6 +101,11 @@ export const shopCategory = asyncErrorHandler(async (req, res, next) => {
 export const shopMenuList = asyncErrorHandler(async (req, res, next) => {
   const menuList = await menuModel.find({ restaurantId: req.auth._id })
 
+  if (menuList.length == 0) {
+    const error = new CustomeError('there is no menu, please add menu', 404);
+    return next(error);
+  }
+
   res.status(201).json({
     message: "success",
     length: menuList.length,
@@ -111,6 +117,11 @@ export const shopMenuList = asyncErrorHandler(async (req, res, next) => {
 
 export const shopItemList = asyncErrorHandler(async (req, res, next) => {
   const menuList = await itemModel.find({ restaurantId: req.auth._id });
+
+  if (menuList.length == 0) {
+    const error = new CustomeError('there is no item, please add item', 404);
+    return next(error);
+  }
 
   res.status(200).json({
     status: "success",
@@ -124,8 +135,14 @@ export const shopItemList = asyncErrorHandler(async (req, res, next) => {
 export const newOrder = asyncErrorHandler(async (req, res, next) => {
   const order = await orderModel.find({ restaurantId: req.auth._id, deliveryStatus: { $in: "pending" } },)
 
+  if (order.length == 0) {
+    const error = new CustomeError('no Order', 404);
+    console.log("error", error)
+    return next(error);
+  }
   res.status(200).json({
     status: "success",
+    length: order.length,
     data: {
       data: order
     }
@@ -141,13 +158,19 @@ export const orderDetails = asyncErrorHandler(async (req, res, next) => {
   });
 })
 export const allCompleteOrders = asyncErrorHandler(async (req, res, next) => {
-  const data = await orderModel.find({ restaurantId: req.auth._id, deliveryStatus: { $in: "complete" } },)
+  const order = await orderModel.find({ restaurantId: req.auth._id, deliveryStatus: { $in: "complete" } },)
+
+  if (order.length == 0) {
+    const error = new CustomeError('there is no complete Order', 404);
+    console.log("error", error)
+    return next(error);
+  }
 
   res.status(200).json({
     status: "success",
-    length: data.length,
+    length: order.length,
     data: {
-      data
+      data: order
     }
   });
 })

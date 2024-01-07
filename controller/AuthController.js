@@ -47,8 +47,7 @@ export const login = asyncErrorHandler(async (req, res, next) => {
   console.log("payload", payload)
 
   // create jwt token
-  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
-  // const token = jwt.sign(payload, process.env.JWT_SECRET_KEY,{ expiresIn: 30 });
+  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '30d' });
 
   res.status(200).json({
     status: "success",

@@ -31,26 +31,43 @@ const UserSchema = mongoose.Schema({
     required: [true, "Number is required field"],
     unique: true
   },
-  deviceToken: String,
   role: {
     type: String,
     enum: ["user", "admin"],
     default: "user"
   },
-  createAt: {
-    type: Date,
-    default: Date.now
+  otp: {
+    type: String,
+    default: "",
+    select: false
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+  deviceToken: String,
+  token: {
+    type: String,
+    select: false
+  },
+},
+  {
+    timestamps: true
   }
-})
+)
 
-UserSchema.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-})
+// UserSchema.pre("save", async function (next) {
+//   if (!this.isModified('password')) return next();
+
+//   const salt = await bcrypt.genSalt(10);
+//   this._update.password = await bcrypt.hash(this._update.password, salt);
+//   next();
+// })
+
+// UserSchema.pre("findOneAndUpdate", async function (next) {
+//   if (!this.isModified('password')) return next();
+//   const salt = await bcrypt.genSalt(10);
+//   if (this._update.password) {
+//     this._update.password = await bcrypt.hash(this._update.password, salt);
+//   }
+//   next();
+// })
 
 const user = mongoose.model("user", UserSchema);
 

@@ -14,15 +14,16 @@ const ItemSchema = Schema({
   },
   imageUrl: String,
   price: Schema.Types.Decimal128,
-  createAt: {
-    type: Date,
-    default: Date.now
+  isVerified: {
+    type: Boolean,
+    enum: [true, false],
+    default: false
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+},
+  {
+    timestamps: true
   }
-})
+)
 
 
 const item = mongoose.model("item", ItemSchema);

@@ -35,15 +35,20 @@ const RestaurantSchema = mongoose.Schema({
     enum: ["pending", "accept", "reject"],
     default: "pending"
   },
-  createAt: {
-    type: Date,
-    default: Date.now
+  otp: {
+    type: String,
+    select: false
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+  token: {
+    type: String,
+    select: false
   }
-})
+},
+  {
+    timestamps: true
+  }
+
+)
 
 RestaurantSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, 10);

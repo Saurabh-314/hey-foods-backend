@@ -12,15 +12,16 @@ const MenuSchema = Schema({
     required: [true, "Name is required field"],
   },
   iconUrl: String,
-  createAt: {
-    type: Date,
-    default: Date.now
+  isVerified: {
+    type: Boolean,
+    enum: [true, false],
+    default: false
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
+},
+  {
+    timestamps: true
   }
-})
+)
 
 
 const menu = mongoose.model("menu", MenuSchema);

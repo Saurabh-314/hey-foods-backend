@@ -1,11 +1,11 @@
-import { register, updateMenu, deleteMenu, getMenu } from "../controller/MenuController.js";
+import { register, updateMenu, deleteMenu, allMenu } from "../controller/MenuController.js";
 import { Router } from "express";
-import { auth } from "../middleware/authMiddleware.js";
+import { restaurantAuth } from "../middleware/authMiddleware.js";
 const router = Router();
 
-router.route("/register").post(auth, register);
-router.route("/allmenu").get(auth, getMenu);
-router.route("/:id").patch(auth, updateMenu);
-router.route("/:id").delete(auth, deleteMenu);
+router.route("/register").post(restaurantAuth, register);
+router.route("/allMenu").get(allMenu);
+router.route("/").patch(restaurantAuth, updateMenu);
+router.route("/").delete(restaurantAuth, deleteMenu);
 
 export default router;

@@ -11,16 +11,12 @@ const RatingSchema = Schema({
     type: Number,
     min: [1, "Rating must be 1 or above"],
     max: [5, "Rating must be 5 or below"]
-  },
-  createAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
   }
-})
+},
+  {
+    timestamps: true
+  }
+)
 
 
 const rating = mongoose.model("rating", RatingSchema);

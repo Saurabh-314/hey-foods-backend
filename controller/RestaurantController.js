@@ -37,13 +37,16 @@ export const shopLogin = asyncErrorHandler(async (req, res, next) => {
 
   // create payload
   const payload = {
-    email,
     _id: restaurant._id,
+    mobileNumber: restaurant.mobileNumber,
   }
   console.log("payload", payload)
 
   // create jwt token
-  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY);
+  const token = jwt.sign(payload, process.env.JWT_SECRET_KEY, { expiresIn: '30d' });
+
+  //  save token in database
+  await restaurantModel.findOneAndUpdate({ _id: restaurant._id }, { token });
 
   res.status(200).json({
     status: "success",
@@ -148,8 +151,9 @@ export const newOrder = asyncErrorHandler(async (req, res, next) => {
     }
   });
 })
+
 export const orderDetails = asyncErrorHandler(async (req, res, next) => {
-  const data = await orderModel.findById(req.params.id);
+  const data = await orderModel.findById(req.query.id);
   res.status(200).json({
     status: "success",
     data: {
@@ -174,7 +178,17 @@ export const allCompleteOrders = asyncErrorHandler(async (req, res, next) => {
     }
   });
 })
-export const settlePayments = asyncErrorHandler(async (req, res, next) => { })
+export const settlePayments = asyncErrorHandler(async (req, res, next) => {
+  // console.log(req.query)
+  const data = await orderModel.findByIdAndUpdate(req.query.id, { paymentStatus: "complete" });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: data
+    }
+  });
+})
 export const pendingPayment = asyncErrorHandler(async (req, res, next) => {
   const data = await orderModel.find({ restaurantId: req.auth._id, paymentStatus: { $in: "incomplete" } },)
 

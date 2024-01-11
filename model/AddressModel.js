@@ -26,16 +26,12 @@ const AddressSchema = Schema({
   pincode: {
     type: String,
     required: [true, "Pincode is required field"],
-  },
-  createAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
   }
-})
+},
+  {
+    timestamps: true
+  }
+)
 
 
 const address = mongoose.model("address", AddressSchema);

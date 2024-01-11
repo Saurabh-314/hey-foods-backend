@@ -8,6 +8,6 @@ router.route("/profile")
   .get(restrict('admin'), profile)
   .patch(restrict('admin'), profileUpdate)
 
-router.patch("/restaurant-approval-requrest/:id", auth, restrict('admin'), restaurantApproval)
+router.patch("/restaurant-approval-request/:id", auth, restrict('admin'), restaurantApproval)
 
 export default router;

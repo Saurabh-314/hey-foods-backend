@@ -43,16 +43,12 @@ const OrderSchema = Schema({
     street: String,
     landmark: String,
     pincode: String,
-  },
-  createAt: {
-    type: Date,
-    default: Date.now
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
   }
-})
+},
+  {
+    timestamps: true
+  }
+)
 
 
 const order = mongoose.model("order", OrderSchema);

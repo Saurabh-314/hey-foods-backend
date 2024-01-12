@@ -4,7 +4,7 @@ import { restaurantAuth } from "../middleware/authMiddleware.js";
 const router = Router();
 
 router.post("/register", shopRegister);
-router.post("/login", shopLogin);
+router.post("/login", shopLogin); // user can login with emailID or mobile Number
 
 router.route("/info")
   .get(restaurantAuth, shopInfo)

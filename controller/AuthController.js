@@ -158,6 +158,11 @@ export const profileUpdate = asyncErrorHandler(async (req, res, next) => {
 //  User Order list
 export const orderList = asyncErrorHandler(async (req, res, next) => {
   const data = await orderModel.find({ userId: req.auth._id, deliveryStatus: { $in: ["pending", "complete", "reject"] } })
+
+  if (data.length == 0) {
+    const error = new CustomeError('No Order', 200);
+    return next(error);
+  }
   res.status(200).json({
     status: 'success',
     length: data.length,
@@ -235,6 +240,6 @@ export const changePassword = asyncErrorHandler(async (req, res, next) => {
   });
 })
 
-export const shopLogout = asyncErrorHandler(async(req,res,next)=>{
-  
+export const shopLogout = asyncErrorHandler(async (req, res, next) => {
+
 })

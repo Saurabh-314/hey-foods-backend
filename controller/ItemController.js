@@ -30,14 +30,14 @@ export const getAllItems = asyncErrorHandler(async (req, res, next) => {
 export const getItemById = asyncErrorHandler(async (req, res, next) => {
 
   const item = await itemModel.findOne({ _id: req.query.id });
-
+console.log("item",item)
   // if item not exists
   if (!item) {
     const error = new CustomeError("item not found", 404);
     return next(error);
   }
   // if item is not varified
-  if (!item.isVarified) {
+  if (!item.isVerified) {
     const error = new CustomeError("item is not varified", 406);
     return next(error);
   }

@@ -20,10 +20,21 @@ export const shopRegister = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const shopLogin = asyncErrorHandler(async (req, res, next) => {
-  const { email, password } = req.body;
-  // console.log(req.body)
-  const restaurant = await restaurantModel.findOne({ email }).select("+password"); // it will fetch all document with password
-  // console.log("restaurant", restaurant);
+  const { email, mobileNumber, password } = req.body;
+
+  var search = undefined;
+  if (email) {
+    search = { email: email };
+  } else if (mobileNumber) {
+    search = { mobileNumber: mobileNumber };
+  }
+
+  if (!search) {
+    return next(new CustomeError("please Enter Email or Mobile Number", 400));
+  }
+
+  const restaurant = await restaurantModel.findOne(search).select("+password"); // it will fetch all document with password
+  console.log("restaurant", restaurant)
   if (!restaurant) {
     const error = new CustomeError('Username or Password is incorrect', 404);
     return next(error);
@@ -51,7 +62,7 @@ export const shopLogin = asyncErrorHandler(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     data: {
-      token
+      token: token
     }
   });
 

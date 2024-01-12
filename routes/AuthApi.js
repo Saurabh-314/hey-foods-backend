@@ -15,7 +15,7 @@ router.route("/profile")
   .get(auth, profile)
   .patch(auth, profileUpdate)
 
-router.route("/order").get(auth, orderList);
+router.route("/myOrder").get(auth, orderList);
 
 // forget password 
 router.route("/newPassword").post(auth, newPassword);

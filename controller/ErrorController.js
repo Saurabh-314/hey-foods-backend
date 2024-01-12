@@ -1,6 +1,7 @@
 import CustomError from "../utils/CustomError.js";
 
 const devErrors = (res, error) => {
+
   res.status(error.statusCode).json({
     status: error.statusCode,
     message: error.message,
@@ -50,6 +51,7 @@ const handleJWTError = (err) => {
 }
 
 export const globalErrorHandler = (error, req, res, next) => {
+  // console.log("globalErrorHandler", error)
   error.statusCode = error.statusCode || 500;
   error.status = error.status || 'error';
 

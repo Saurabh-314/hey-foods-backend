@@ -16,7 +16,7 @@ import { globalErrorHandler } from "./controller/ErrorController.js";
 dotenv.config();
 mongoose.set('strictQuery', true);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5500;
 const app = express();
 app.use(cors());
 app.use(express.json())

@@ -5,8 +5,8 @@ const router = Router();
 
 router.route("/register").post(restaurantAuth, register);
 router.route("/getAllItems").get(getAllItems);
-router.route("/").get(getItemById);
-router.route("/").patch(restaurantAuth, updateItem);
-router.route("/").delete(restaurantAuth, deleteItem);
+router.route("/:id").get(getItemById);
+router.route("/:id").patch(restaurantAuth, updateItem);
+router.route("/:id").delete(restaurantAuth, deleteItem);
 
 export default router;

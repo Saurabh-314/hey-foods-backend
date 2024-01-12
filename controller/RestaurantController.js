@@ -189,7 +189,7 @@ export const allCompleteOrders = asyncErrorHandler(async (req, res, next) => {
     }
   });
 })
-export const settlePayments = asyncErrorHandler(async (req, res, next) => {
+export const settlePayment = asyncErrorHandler(async (req, res, next) => {
   // console.log(req.query)
   const data = await orderModel.findByIdAndUpdate(req.query.id, { paymentStatus: "complete" });
 

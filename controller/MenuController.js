@@ -32,7 +32,7 @@ export const allMenu = asyncErrorHandler(async (req, res) => {
   })
 })
 export const updateMenu = asyncErrorHandler(async (req, res) => {
-  const updatedMenu = await menuModel.findByIdAndUpdate({ _id: req.query.id }, req.body, { new: true });
+  const updatedMenu = await menuModel.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
   res.status(200).json({
     status: "success",
     data: {
@@ -42,7 +42,7 @@ export const updateMenu = asyncErrorHandler(async (req, res) => {
 
 })
 export const deleteMenu = asyncErrorHandler(async (req, res) => {
-  const deletedMenu = await menuModel.deleteOne({ _id: req.query.id })
+  const deletedMenu = await menuModel.deleteOne({ _id: req.params.id })
   res.status(201).json({
     message: "success",
     data: {

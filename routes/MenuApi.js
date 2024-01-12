@@ -5,7 +5,7 @@ const router = Router();
 
 router.route("/register").post(restaurantAuth, register);
 router.route("/allMenu").get(allMenu);
-router.route("/").patch(restaurantAuth, updateMenu);
-router.route("/").delete(restaurantAuth, deleteMenu);
+router.route("/:id").patch(restaurantAuth, updateMenu);
+router.route("/:id").delete(restaurantAuth, deleteMenu);
 
 export default router;

@@ -29,7 +29,7 @@ export const getAllItems = asyncErrorHandler(async (req, res, next) => {
 })
 export const getItemById = asyncErrorHandler(async (req, res, next) => {
 
-  const item = await itemModel.findOne({ _id: req.query.id });
+  const item = await itemModel.findOne({ _id: req.params.id });
 console.log("item",item)
   // if item not exists
   if (!item) {
@@ -52,7 +52,7 @@ console.log("item",item)
 
 export const updateItem = asyncErrorHandler(async (req, res, next) => {
 
-  const item = await itemModel.findOneAndUpdate({ _id: req.query.id }, req.body, { new: true });
+  const item = await itemModel.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
   res.status(200).json({
     status: "success",
     data: {

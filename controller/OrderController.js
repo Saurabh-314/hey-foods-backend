@@ -24,7 +24,7 @@ export const register = asyncErrorHandler(async (req, res, next) => {
 })
 
 export const getOrderById = asyncErrorHandler(async (req, res) => {
-  const data = await orderModel.findById(req.query.id);
+  const data = await orderModel.findById(req.params.id);
 
   if (!data) {
     const error = new CustomeError("Order not found, please enter valid ID", 404);

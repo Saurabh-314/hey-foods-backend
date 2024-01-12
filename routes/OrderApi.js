@@ -4,6 +4,6 @@ import { auth } from "../middleware/authMiddleware.js";
 const router = Router();
 
 router.route("/register").post(auth, register);
-router.route("/single-order").get(auth, getOrderById);
+router.route("/singleOrder").get(auth, getOrderById);
 
 export default router;
